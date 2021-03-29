@@ -5,6 +5,8 @@
 ;; Author: Kris Jenkins <krisajenkins@gmail.com>
 ;; Maintainer: Kris Jenkins <krisajenkins@gmail.com>
 ;; Keywords: org babel mongo mongodb
+;; Package-Version: 20170720.1919
+;; Package-Commit: 371bf19c7c10eab2f86424f8db8ab685997eb5aa
 ;; URL: https://github.com/krisajenkins/ob-mongo
 ;; Created: 17th July 2013
 ;; Version: 0.1.0
@@ -54,8 +56,8 @@
 
 (defun ob-mongo--make-command (params)
   (let ((pdefs `((:mongoexec ,ob-mongo:default-mongo-executable)
+                 (:host , ob-mongo:default-host)
                  (quiet "--quiet")
-                 (:host , ob-mongo:default-host "--host")
                  (:port ,ob-mongo:default-port "--port")
                  (:password ,ob-mongo:default-password "--password")
                  (:user ,ob-mongo:default-user "--username")
@@ -72,8 +74,6 @@
 ;;;###autoload
 (defun org-babel-execute:mongo (body params)
   "org-babel mongo hook."
-  (unless (assoc :db params)
-    (user-error "The required parameter :db is missing."))
   (org-babel-eval (ob-mongo--make-command params) body))
 
 ;;;###autoload
